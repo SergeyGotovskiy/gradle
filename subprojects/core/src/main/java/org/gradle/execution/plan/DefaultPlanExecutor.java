@@ -177,7 +177,10 @@ public class DefaultPlanExecutor implements PlanExecutor, Stoppable {
                 PlanDetails details = iterator.next();
                 WorkSource.State state = details.source.executionState();
                 if (state == WorkSource.State.NoMoreWorkToStart) {
-                    iterator.remove();
+                    if (details.source.allExecutionComplete()) {
+                        iterator.remove();
+                    }
+                    // Else, leave the plan in the set of plans so that it can participate in health monitoring. It will be garbage collected once complete
                 } else if (state == WorkSource.State.MaybeWorkReadyToStart) {
                     return WorkSource.State.MaybeWorkReadyToStart;
                 }
@@ -196,7 +199,10 @@ public class DefaultPlanExecutor implements PlanExecutor, Stoppable {
                 PlanDetails details = iterator.next();
                 WorkSource.Selection<Object> selection = details.source.selectNext();
                 if (selection.isNoMoreWorkToStart()) {
-                    iterator.remove();
+                    if (details.source.allExecutionComplete()) {
+                        iterator.remove();
+                    }
+                    // Else, leave the plan in the set of plans so that it can participate in health monitoring. It will be garbage collected once complete
                 } else if (!selection.isNoWorkReadyToStart()) {
                     return WorkSource.Selection.of(new WorkItem(selection, details.source, details.worker));
                 }

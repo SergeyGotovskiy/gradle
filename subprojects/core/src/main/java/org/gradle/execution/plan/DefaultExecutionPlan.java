@@ -144,7 +144,6 @@ public class DefaultExecutionPlan implements ExecutionPlan, WorkSource<Node> {
     public void addNodes(Collection<? extends Node> nodes) {
         Deque<Node> queue = new ArrayDeque<>(nodes.size());
         for (Node node : nodes) {
-            assert node.getDependenciesProcessed() || node instanceof TaskInAnotherBuild;
             assert node.isInKnownState();
             if (node.isRequired()) {
                 entryNodes.add(node);
