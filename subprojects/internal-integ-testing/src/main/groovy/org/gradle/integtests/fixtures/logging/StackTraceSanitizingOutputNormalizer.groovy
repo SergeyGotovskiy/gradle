@@ -39,8 +39,10 @@ class StackTraceSanitizingOutputNormalizer implements OutputNormalizer {
 
     @Override
     String normalize(String output, ExecutionMetadata executionMetadata) {
-        executionMetadata.tempSampleProjectDir.name.contains('build-android-app')
+        String ret = executionMetadata.tempSampleProjectDir.name.contains('build-android-app')
             ? PATTERN.matcher(output).replaceAll("")
             : output
+        println("dir: ${executionMetadata.tempSampleProjectDir}, output: $output, ret: $ret")
+        return ret
     }
 }
