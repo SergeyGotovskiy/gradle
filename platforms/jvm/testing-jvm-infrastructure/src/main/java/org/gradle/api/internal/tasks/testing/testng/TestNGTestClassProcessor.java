@@ -114,7 +114,7 @@ public class TestNGTestClassProcessor implements TestClassProcessor {
         if (spec.getThreadCount() > 0) {
             testNg.setThreadCount(spec.getThreadCount());
         }
-
+        testNg.setSuiteThreadPoolSize(spec.getSuiteThreadPoolSize());
         setConfigFailurePolicy(testNg, spec.getConfigFailurePolicy());
         setPreserveOrder(testNg, spec.getPreserveOrder());
         setGroupByInstances(testNg, spec.getGroupByInstances());

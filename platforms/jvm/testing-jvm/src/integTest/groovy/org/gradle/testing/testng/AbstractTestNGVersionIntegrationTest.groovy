@@ -27,4 +27,8 @@ class AbstractTestNGVersionIntegrationTest extends MultiVersionIntegrationSpec {
     static boolean supportConfigFailurePolicy() {
         return versionNumber >= VersionNumber.parse('5.13')
     }
+
+    static boolean supportSuiteThreadPoolSize() {
+        return versionNumber >= VersionNumber.parse('5.14')
+    }
 }

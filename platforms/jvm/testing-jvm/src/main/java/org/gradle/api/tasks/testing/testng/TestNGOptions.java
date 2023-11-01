@@ -53,6 +53,7 @@ public abstract class TestNGOptions extends TestFrameworkOptions {
     public static final String DEFAULT_CONFIG_FAILURE_POLICY = TestNGTestClassProcessor.DEFAULT_CONFIG_FAILURE_POLICY;
     private static final String DEFAULT_PARALLEL_MODE = null;
     private static final int DEFAULT_THREAD_COUNT = -1;
+    private static final int SUITE_THREAD_POOL_SIZE_DEFAULT = 1;
 
     private File outputDirectory;
 
@@ -67,6 +68,8 @@ public abstract class TestNGOptions extends TestFrameworkOptions {
     private String parallel = DEFAULT_PARALLEL_MODE;
 
     private int threadCount = DEFAULT_THREAD_COUNT;
+
+    private int suiteThreadPoolSize = SUITE_THREAD_POOL_SIZE_DEFAULT;
 
     private boolean useDefaultListeners;
 
@@ -322,6 +325,18 @@ public abstract class TestNGOptions extends TestFrameworkOptions {
 
     public void setThreadCount(int threadCount) {
         this.threadCount = threadCount;
+    }
+
+    /**
+     * The number of XML suites will run parallel
+     */
+    @Internal
+    public int getSuiteThreadPoolSize() {
+        return suiteThreadPoolSize;
+    }
+
+    public void setSuiteThreadPoolSize(int suiteThreadPoolSize) {
+        this.suiteThreadPoolSize = suiteThreadPoolSize;
     }
 
     @Internal
