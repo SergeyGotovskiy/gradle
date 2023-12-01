@@ -51,6 +51,7 @@ import org.gradle.internal.FileUtils;
 import org.gradle.internal.classpath.Instrumented;
 import org.gradle.internal.lazy.Lazy;
 import org.gradle.internal.management.VersionCatalogBuilderInternal;
+import org.gradle.util.internal.TextUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -82,8 +83,8 @@ import static org.gradle.api.internal.catalog.problems.VersionCatalogProblemId.U
 import static org.gradle.api.internal.catalog.problems.VersionCatalogProblemId.UNDEFINED_VERSION_REFERENCE;
 import static org.gradle.api.internal.catalog.problems.VersionCatalogProblemId.UNSUPPORTED_FILE_FORMAT;
 import static org.gradle.api.problems.Severity.ERROR;
-import static org.gradle.internal.deprecation.Documentation.userManual;
 import static org.gradle.internal.RenderingUtils.oxfordListOf;
+import static org.gradle.internal.deprecation.Documentation.userManual;
 
 public abstract class DefaultVersionCatalogBuilder implements VersionCatalogBuilderInternal {
 
@@ -126,8 +127,6 @@ public abstract class DefaultVersionCatalogBuilder implements VersionCatalogBuil
     private Import importedCatalog = null;
     private final StrictVersionParser strictVersionParser;
 
-    //    @Inject
-//    private final Problems problemsService;
     private final Property<String> description;
 
     private String currentContext;
@@ -216,7 +215,7 @@ public abstract class DefaultVersionCatalogBuilder implements VersionCatalogBuil
         return builder.label(message)
             .documentedAt(userManual(VERSION_CATALOG_PROBLEMS, catalogProblemId.name().toLowerCase()))
             .noLocation()
-            .category(VERSION_CATALOG_PROBLEMS, catalogProblemId.name())
+            .category("dependency-version-catalog", TextUtil.screamingSnakeToKebabCase(catalogProblemId.name()))
             .severity(ERROR);
     }
 

@@ -31,6 +31,7 @@ import org.gradle.api.problems.ProblemBuilderDefiningLabel;
 import org.gradle.api.problems.ProblemBuilderDefiningLocation;
 import org.gradle.api.problems.Problems;
 import org.gradle.api.problems.ReportableProblem;
+import org.gradle.util.internal.TextUtil;
 import org.tomlj.Toml;
 import org.tomlj.TomlArray;
 import org.tomlj.TomlInvalidTypeException;
@@ -40,6 +41,7 @@ import org.tomlj.TomlTable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -116,7 +118,7 @@ public class TomlCatalogFileParser {
 
     private void parse() throws IOException {
         StrictVersionParser strictVersionParser = new StrictVersionParser(Interners.newStrongInterner());
-        try (InputStream inputStream = Files.newInputStream(catalogFilePath)) {
+        try (InputStream inputStream = new BufferedInputStream(Files.newInputStream(catalogFilePath))) {
             TomlParseResult result = Toml.parse(inputStream);
             assertNoParseErrors(result, catalogFilePath, versionCatalogBuilder);
             TomlTable metadataTable = result.getTable(METADATA_KEY);
@@ -150,7 +152,7 @@ public class TomlCatalogFileParser {
             .documentedAt(userManual(VERSION_CATALOG_PROBLEMS, catalogProblemId.name().toLowerCase()));
         ProblemBuilderDefiningCategory definingCategory = locationDefiner.apply(definingLocation);
         return definingCategory
-            .category(catalogProblemId.name())
+            .category("dependency-version-catalog", TextUtil.screamingSnakeToKebabCase(catalogProblemId.name()))
             .severity(ERROR);
     }
 

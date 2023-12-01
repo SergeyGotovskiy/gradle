@@ -33,7 +33,7 @@ val spockVersion = if (isBundleGroovy4) "2.3-groovy-4.0" else "2.3-groovy-3.0"
 val tomljVersion = "1.0.0"
 
 // test only
-val archunitVersion = "1.0.0-rc1"
+val archunitVersion = "1.2.0"
 val bytebuddyVersion = "1.10.20"
 val jettyVersion = "9.4.36.v20210114"
 val sshdVersion = "2.0.0" // Upgrade requires changes in package names and tests fail on expectations (but work otherwise)
@@ -70,7 +70,7 @@ dependencies {
         api(libs.commonsLang)           { version { strictly("2.6") }}
         api(libs.commonsLang3)          { version { strictly("3.12.0") }}
         api(libs.commonsMath)           { version { strictly("3.6.1") }}
-        api(libs.gradleProfiler)        { version { strictly("0.20.0") }}
+        api(libs.gradleProfiler)        { version { strictly("0.21.0-alpha-3") }}
         api(libs.gradleEnterpriseTestAnnotation) { version { strictly("1.0") }}
         api(libs.gcs)                   { version { strictly("v1-rev20220705-1.32.1") }}
         api(libs.googleApiClient)       { version { strictly("1.34.0"); because("our GCS version requires 1.34.0") }}

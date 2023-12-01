@@ -20,9 +20,8 @@ import com.google.common.collect.ImmutableList;
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.problems.Problem;
 import org.gradle.api.problems.ProblemCategory;
-import org.gradle.api.problems.internal.DefaultProblemCategory;
-import org.gradle.api.problems.Problems;
 import org.gradle.api.problems.ReportableProblem;
+import org.gradle.api.problems.internal.DefaultProblemCategory;
 import org.gradle.internal.exceptions.DefaultMultiCauseException;
 import org.gradle.internal.reflect.validation.TypeValidationProblemRenderer;
 import org.gradle.model.internal.type.ModelType;
@@ -44,7 +43,7 @@ public class DefaultTypeValidationContext extends ProblemRecordingTypeValidation
         return new DefaultTypeValidationContext(rootType, cacheable);
     }
 
-    public static DefaultTypeValidationContext withoutRootType(Problems problems, boolean reportCacheabilityProblems) {
+    public static DefaultTypeValidationContext withoutRootType(boolean reportCacheabilityProblems) {
         return new DefaultTypeValidationContext(null, reportCacheabilityProblems);
     }
 
@@ -53,7 +52,9 @@ public class DefaultTypeValidationContext extends ProblemRecordingTypeValidation
         this.reportCacheabilityProblems = reportCacheabilityProblems;
     }
 
-    public static final DefaultProblemCategory MISSING_NORMALIZATION_CATEGORY = new DefaultProblemCategory(VALIDATION + SEPARATOR + MISSING_NORMALIZATION_ANNOTATION);
+    public static final String MISSING_NORMALIZATION_CATEGORY_DETAILS = "property" + SEPARATOR + "missing-normalization-annotation";
+    public static final DefaultProblemCategory MISSING_NORMALIZATION_CATEGORY = new DefaultProblemCategory(VALIDATION + SEPARATOR  + MISSING_NORMALIZATION_CATEGORY_DETAILS);
+
     public static boolean onlyAffectsCacheableWork(ProblemCategory problemCategory) {
         return MISSING_NORMALIZATION_CATEGORY.equals(problemCategory);
     }
