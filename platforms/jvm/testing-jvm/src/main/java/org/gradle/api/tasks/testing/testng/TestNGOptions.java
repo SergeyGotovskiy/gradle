@@ -113,6 +113,7 @@ public abstract class TestNGOptions extends TestFrameworkOptions {
         replace(this.listeners, other.listeners);
         this.parallel = other.parallel;
         this.threadCount = other.threadCount;
+        this.suiteThreadPoolSize = other.suiteThreadPoolSize;
         this.useDefaultListeners = other.useDefaultListeners;
         this.suiteName = other.suiteName;
         this.testName = other.testName;
